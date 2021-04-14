@@ -11,20 +11,17 @@ def parse_jogos(arquivo = 'games.log'):
     jogos = []
     inicio = 0
     fim = 0
-    for i, linha in enumerate(linhas):
-        
+    for i, linha in enumerate(linhas):        
         if re.findall(regexp, linha):
             inicio = i 
-        elif re.findall(regexp2, linhas[i+1]):
+        elif re.findall(regexp2, linhas[i]):
             fim = i
             array_linhas_jogo = retornando_jogos(inicio,fim,linhas)
             jogo = Jogo(array_linhas_jogo)
-            jogos.append(jogo)
-            for jogo in jogos:
-                jogo.Mostrar_linhas()
-                break
-            break
+            jogos.append(jogo)                            
             #lista[i] = linha[0].split()
+    jogo = jogos[4]
+    jogo.Mostrar_linhas()
 
 def retornando_jogos(inicio,fim,linhas):
     linhas_jogo = []
