@@ -17,7 +17,8 @@ def parse_jogos(arquivo = 'games.log'):
         elif re.findall(regexp2, linhas[i]):
             fim = i
             array_linhas_jogo = retornando_jogos(inicio,fim,linhas)
-            jogo = Jogo(array_linhas_jogo)
+            game = len(jogos)+1
+            jogo = Jogo(array_linhas_jogo,game)
             jogos.append(jogo)                            
             #lista[i] = linha[0].split()
     jogo = jogos[4]
