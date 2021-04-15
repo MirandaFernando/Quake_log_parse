@@ -11,3 +11,7 @@ class Jogo:
     def Mostrar_linhas(self):
         for linha in self.linhas_do_jogo:
             print(linha)
+    
+    def info_game(self):
+        for linha in self.linhas_do_jogo:
+            break

@@ -1,6 +1,6 @@
 import re
 
-from jogo import Jogo
+from modelos.jogo import Jogo
 
 
 def parse_jogos(arquivo = 'games.log'):
@@ -21,8 +21,7 @@ def parse_jogos(arquivo = 'games.log'):
             jogo = Jogo(array_linhas_jogo,game)
             jogos.append(jogo)                            
             #lista[i] = linha[0].split()
-    jogo = jogos[4]
-    jogo.Mostrar_linhas()
+    return jogos
 
 def retornando_jogos(inicio,fim,linhas):
     linhas_jogo = []
@@ -34,5 +33,3 @@ def retornando_jogos(inicio,fim,linhas):
     return linhas_jogo
     
 
-if __name__ == '__main__':
-    parse_jogos()
