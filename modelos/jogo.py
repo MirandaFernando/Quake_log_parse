@@ -47,22 +47,27 @@ class Jogo:
                 self.total_de_kills = self.total_de_kills +1
                 world_morte = re.findall(matou, linha)
                 #print(world_morte[0])
-                if world_morte[0] == "1022 2 22: <world>":
+                if world_morte[0].find("world") != -1:
+                    #print("entrou")
                     player_morto = re.findall(morreu, linha)
-                    #print(str(player_morto))
-                    self.atualizar_kills_player(player_morto, -1)
+                    self.sub_morte(player_morto)
                 else:
+                    #print("entrou")
                     player_matou = re.findall(matou, linha)
-                    #print(str(player_matou))
-                    self.atualizar_kills_player(player_matou, 1)
+                    self.somar_morte(player_matou)
         self.atualizar_dicionario()
+         
 
-            
+    def somar_morte(self, player_morto_matou):
+        for p in self.players:
+            if player_morto_matou[0].find(p.nome_jogador)!=-1:
+                print("entrou")
+                p.kills = p.kills + 1
 
-    def atualizar_kills_player(self, player_morto_matou, x):
+    def sub_morte(self, player_morto_matou):
         for p in self.players:
             if p.nome_jogador == player_morto_matou[0]:
-                p.kills = p.kills + 1
+                p.kills = p.kills - 1
 
     def verificando_nick(self, nick):
         for p in self.players:

@@ -3,7 +3,7 @@ import re
 from modelos.jogo import Jogo
 
 
-def parse_jogos(arquivo = 'teste.log'):
+def parse_jogos(arquivo):
     with open(arquivo) as f:
         linhas = f.readlines()
     regexp = 'InitGame'
