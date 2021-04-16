@@ -61,7 +61,6 @@ class Jogo:
     def somar_morte(self, player_morto_matou):
         for p in self.players:
             if player_morto_matou[0].find(p.nome_jogador)!=-1:
-                print("entrou")
                 p.kills = p.kills + 1
 
     def sub_morte(self, player_morto_matou):
@@ -76,19 +75,9 @@ class Jogo:
 
         return False
 
-    def mostrar_players(self):
-        for p in self.players:
-            print(p)
-    
-    def mostrar_toltal_kills(self):
-        print(self.total_de_kills)
-    
     def atualizar_dicionario(self):
         for p in self.players:
             self.kills[p.nome_jogador] = p.kills
-
-    def dicionario(self):
-        print(self.kills)
 
     def __str__(self):
         return 'jogo%s:{\n total_kills: %d;\n %s' % (self.game, self.total_de_kills, self.kills)

@@ -5,7 +5,7 @@ from parse import parse_jogos
 
 
 if __name__ == '__main__':
-    jogos = parse_jogos('teste.log')
+    jogos = parse_jogos('games.log')
     #jogo4 = jogos[4]
     #jogo4.Mostrar_linhas()
     #jogo4.mostrar_players()
