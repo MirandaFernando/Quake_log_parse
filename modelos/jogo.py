@@ -14,6 +14,7 @@ class Jogo:
         self.total_de_kills = 0
         self.players = []
         self.kills = {}
+        self.tipo_mortes ={}
         self.atualizando_info_game()
     
     def Mostrar_linhas(self):
@@ -89,8 +90,30 @@ class Jogo:
             ranking[key[0]] = key[1]
         print("raking de kills{")
         for key in ranking:
-            print(key,":",ranking[key])
-        print("}")   
+            print("\t",key,":",ranking[key])
+        print("}")
+
+    def atualizar_causa_morte(self):
+        kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
+        causa_da_morte = '(?<=by\s)(.*?)(?=$)'
+        for linha in self.linhas_do_jogo:
+            if re.findall(kill, linha):
+                key = re.findall(causa_da_morte, linha)
+                if key[0] in self.tipo_mortes:
+                    self.tipo_mortes[key[0]] = self.tipo_mortes[key[0]] + 1
+                else:
+                    self.tipo_mortes[key[0]] = 1       
+        ranking ={}
+        sortedDict = sorted(self.tipo_mortes.items(), key=operator.itemgetter(1), reverse=True)
+        for key in sortedDict:
+            ranking[key[0]] = key[1]
+        print("kills_by_means:{")
+        for key in ranking:
+            print("\t",key,":",ranking[key])
+        print("}")
+    
+
+
 
 
     def __str__(self):
