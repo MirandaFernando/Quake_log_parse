@@ -1,4 +1,6 @@
 import re
+import operator
+
 
 from modelos.jogador import Jogador
 from modelos.mortes import Mortes
@@ -78,6 +80,18 @@ class Jogo:
     def atualizar_dicionario(self):
         for p in self.players:
             self.kills[p.nome_jogador] = p.kills
+    
+    def ranking_game(self):
+        #print sorted(dic.items(), key=itemgetter(1), reverse=True)
+        ranking ={}
+        sortedDict = sorted(self.kills.items(), key=operator.itemgetter(1), reverse=True)
+        for key in sortedDict:
+            ranking[key[0]] = key[1]
+        print("raking de kills{")
+        for key in ranking:
+            print(key,":",ranking[key])
+        print("}")   
+
 
     def __str__(self):
         return 'jogo%s:{\n total_kills: %d;\n %s' % (self.game, self.total_de_kills, self.kills)
