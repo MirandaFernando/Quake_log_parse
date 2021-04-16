@@ -3,7 +3,7 @@ import re
 from modelos.jogo import Jogo
 
 
-def parse_jogos(arquivo = 'games.log'):
+def parse_jogos(arquivo = 'teste.log'):
     with open(arquivo) as f:
         linhas = f.readlines()
     regexp = 'InitGame'
@@ -13,7 +13,11 @@ def parse_jogos(arquivo = 'games.log'):
     fim = 0
     for i, linha in enumerate(linhas):        
         if re.findall(regexp, linha):
-            inicio = i 
+            inicio = i
+        elif i == 0:
+            pass
+        elif (fim+1) == i:
+            pass
         elif re.findall(regexp2, linhas[i]):
             fim = i
             array_linhas_jogo = retornando_jogos(inicio,fim,linhas)

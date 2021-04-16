@@ -62,7 +62,7 @@ class Jogo:
     def atualizar_kills_player(self, player_morto_matou, x):
         for p in self.players:
             if p.nome_jogador == player_morto_matou[0]:
-                p.kills = p.kills + x
+                p.kills = p.kills + 1
 
     def verificando_nick(self, nick):
         for p in self.players:
