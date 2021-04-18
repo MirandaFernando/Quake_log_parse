@@ -3,11 +3,9 @@ import operator
 
 
 from modelos.jogador import Jogador
-from modelos.mortes import Mortes
 
 class Jogo:
-
-    
+   
     def __init__(self, linhas_do_jogo, game):
         self.linhas_do_jogo =linhas_do_jogo
         self.game = game
@@ -17,14 +15,6 @@ class Jogo:
         self.tipo_mortes ={}
         self.atualizando_info_game()
     
-    def Mostrar_linhas(self):
-        for linha in self.linhas_do_jogo:
-            print(linha)
-    
-    def retornando_linhas(self):
-        return self.linhas_do_jogo
-    
-   
     def atualizando_info_game(self):
         kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
         matou = '(?<=:\s)(.*?)(?=\skilled)'
@@ -49,16 +39,13 @@ class Jogo:
             if re.findall(kill, linha):
                 self.total_de_kills = self.total_de_kills +1
                 world_morte = re.findall(matou, linha)
-                #print(world_morte[0])
                 if world_morte[0].find("world") != -1:
-                    #print("entrou")
                     player_morto = re.findall(morreu, linha)
                     self.sub_morte(player_morto)
                 else:
-                    #print("entrou")
                     player_matou = re.findall(matou, linha)
                     self.somar_morte(player_matou)
-        self.atualizar_dicionario()
+        self.atualizar_raking_kills()
          
 
     def somar_morte(self, player_morto_matou):
@@ -78,12 +65,11 @@ class Jogo:
 
         return False
 
-    def atualizar_dicionario(self):
+    def atualizar_raking_kills(self):
         for p in self.players:
             self.kills[p.nome_jogador] = p.kills
     
-    def ranking_game(self):
-        #print sorted(dic.items(), key=itemgetter(1), reverse=True)
+    def ranking_kills_game(self):
         ranking ={}
         sortedDict = sorted(self.kills.items(), key=operator.itemgetter(1), reverse=True)
         for key in sortedDict:
@@ -93,7 +79,7 @@ class Jogo:
             print("\t",key,":",ranking[key])
         print("}")
 
-    def atualizar_causa_morte(self):
+    def mortes_list(self):
         kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
         causa_da_morte = '(?<=by\s)(.*?)(?=$)'
         for linha in self.linhas_do_jogo:
@@ -103,18 +89,14 @@ class Jogo:
                     self.tipo_mortes[key[0]] = self.tipo_mortes[key[0]] + 1
                 else:
                     self.tipo_mortes[key[0]] = 1       
-        ranking ={}
+        ranking_mortes ={}
         sortedDict = sorted(self.tipo_mortes.items(), key=operator.itemgetter(1), reverse=True)
         for key in sortedDict:
-            ranking[key[0]] = key[1]
+            ranking_mortes[key[0]] = key[1]
         print("kills_by_means:{")
-        for key in ranking:
-            print("\t",key,":",ranking[key])
+        for key in ranking_mortes:
+            print("\t",key,":",ranking_mortes[key])
         print("}")
     
-
-
-
-
     def __str__(self):
         return 'jogo%s:{\n total_kills: %d;\n %s' % (self.game, self.total_de_kills, self.kills)

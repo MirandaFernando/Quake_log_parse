@@ -24,7 +24,6 @@ def parse_jogos(arquivo):
             game = len(jogos)+1
             jogo = Jogo(array_linhas_jogo,game)
             jogos.append(jogo)                            
-            #lista[i] = linha[0].split()
     return jogos
 
 def retornando_jogos(inicio,fim,linhas):
