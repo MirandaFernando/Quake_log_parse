@@ -19,6 +19,7 @@ class Jogo:
         kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
         matou = '(?<=:\s)(.*?)(?=\skilled)'
         morreu = '(?<=killed\s)(.*?)(?=\sby)'
+        regex_id = '[\d+]'
         for linha in self.linhas_do_jogo:
             
             if linha.find('ClientUserinfoChanged:')!= -1:
@@ -30,10 +31,14 @@ class Jogo:
                     nick_list.append(linha[cont])
                     cont = cont + 1
                 nick = ''.join(nick_list)
-                if self.verificando_nick(nick):
-                    pass
+                id_player = re.findall(regex_id, linha)
+                
+                if self.verificando_id(id_player[4]):   
+                    for p in self.players:
+                        if id_player[4] == p.id:
+                            p.nome_jogador = nick
                 else:
-                    player = Jogador(nick)
+                    player = Jogador(nick, id_player[4])
                     self.players.append(player)
             
             if re.findall(kill, linha):
@@ -58,9 +63,9 @@ class Jogo:
             if p.nome_jogador == player_morto_matou[0]:
                 p.kills = p.kills - 1
 
-    def verificando_nick(self, nick):
+    def verificando_id(self, id):
         for p in self.players:
-            if nick == p.nome_jogador:
+            if id == p.id:
                 return True
 
         return False
@@ -98,5 +103,8 @@ class Jogo:
             print("\t",key,":",ranking_mortes[key])
         print("}")
     
+    def retorna_linhas(self):
+        return self.linhas_do_jogo
+
     def __str__(self):
         return 'jogo%s:{\n total_kills: %d;\n %s' % (self.game, self.total_de_kills, self.kills)
