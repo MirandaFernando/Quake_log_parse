@@ -31,14 +31,14 @@ class Jogo:
                     nick_list.append(linha[cont])
                     cont = cont + 1
                 nick = ''.join(nick_list)
-                id_player = re.findall(regex_id, linha)
+                id_player = linha[inicio_nick-2]
                 
-                if self.verificando_id(id_player[4]):   
+                if self.verificando_id(id_player):   
                     for p in self.players:
-                        if id_player[4] == p.id:
+                        if id_player == p.id:
                             p.nome_jogador = nick
                 else:
-                    player = Jogador(nick, id_player[4])
+                    player = Jogador(nick, id_player)
                     self.players.append(player)
             
             if re.findall(kill, linha):
