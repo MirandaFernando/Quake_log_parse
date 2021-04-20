@@ -20,6 +20,7 @@ class Jogo:
         matou = '(?<=:\s)(.*?)(?=\skilled)'
         morreu = '(?<=killed\s)(.*?)(?=\sby)'
         regex_id = '[\d+]'
+        regex_id_kill = '(?<=:\s)(.*?)(?=\skilled)'
         for linha in self.linhas_do_jogo:
             
             if linha.find('ClientUserinfoChanged:')!= -1:
@@ -45,22 +46,24 @@ class Jogo:
                 self.total_de_kills = self.total_de_kills +1
                 world_morte = re.findall(matou, linha)
                 if world_morte[0].find("world") != -1:
-                    player_morto = re.findall(morreu, linha)
-                    self.sub_morte(player_morto)
+                    index_id = re.findall(regex_id_kill, linha)
+                    id_morreu = index_id[0]
+                    self.sub_morte(id_morreu[5])
                 else:
-                    player_matou = re.findall(matou, linha)
-                    self.somar_morte(player_matou)
+                    index_id = re.findall(regex_id_kill, linha)
+                    id_matou = index_id[0]
+                    self.somar_morte(id_matou[0])
         self.atualizar_raking_kills()
          
 
-    def somar_morte(self, player_morto_matou):
+    def somar_morte(self, id_player):
         for p in self.players:
-            if player_morto_matou[0].find(p.nome_jogador)!=-1:
+            if id_player == p.id:
                 p.kills = p.kills + 1
 
-    def sub_morte(self, player_morto_matou):
+    def sub_morte(self, id_player):
         for p in self.players:
-            if p.nome_jogador == player_morto_matou[0]:
+            if p.id == id_player:
                 p.kills = p.kills - 1
 
     def verificando_id(self, id):

@@ -3,7 +3,6 @@ class Jogador:
     def __init__(self, nome_jogador, id_player):
         self.nome_jogador = nome_jogador
         self.kills = 0
-        print(id_player)
         self.id = id_player
     
     def __str__(self):

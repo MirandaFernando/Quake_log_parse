@@ -5,12 +5,12 @@ from parse import parse_jogos
 
 
 if __name__ == '__main__':
-    jogos = parse_jogos('teste.log')
-    print("=======================TASK 1=======================")
+    jogos = parse_jogos('games.log')
+    
     for j in jogos:
         print(j)
+    
 
-    print("=======================FIM TASK 1=======================")
         
 
     
