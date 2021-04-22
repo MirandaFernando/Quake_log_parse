@@ -1,10 +1,26 @@
-## Quake Log Parser
-Parser de logs do game Quake que retorna os resultados das partidas
+## Quake Log Parser Challenge 
+# Introduction
+Log parser of the game Quake that returns the results of the matches.
+challenge link: https://gist.github.com/adbatista/d5b0d4335da0cddc98739c8885626c35
 
-# Pré-requisitos 
+# requirements 
  
   ```
   python 3.7
   ```
-  
-#Executando os testes
+# Running
+  ```
+  git clone https://github.com/MirandaFernando/Quake_log_parse.git
+  ```
+  ```
+  cd Quake_log_parse
+  ```
+  ```
+  python main.py
+  ```
+# Running the tests 
+  ```
+  python -m unittest test_jogo.py
+
+  ```
+
