@@ -8,8 +8,7 @@ class Jogador:
     def __str__(self):
         return 'Nick:%s, kills:%d, id:%s' % (self.nome_jogador, self.kills, self.id)
     
-    def atualizar_kills(self, x):
-        self.kills = self.kills + x
+    
 
     
  

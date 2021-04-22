@@ -16,6 +16,7 @@ class Jogo:
         self.atualizando_info_game()
     
     def atualizando_info_game(self):
+        #expressões para encontrar palavras
         kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
         matou = '(?<=:\s)(.*?)(?=\skilled)'
         morreu = '(?<=killed\s)(.*?)(?=\sby)'
@@ -33,7 +34,7 @@ class Jogo:
                     cont = cont + 1
                 nick = ''.join(nick_list)
                 id_player = linha[inicio_nick-2]
-                
+                #Verifica se o player ja foi cadastrado com outro id                
                 if self.verificando_id(id_player):   
                     for p in self.players:
                         if id_player == p.id:
@@ -41,7 +42,7 @@ class Jogo:
                 else:
                     player = Jogador(nick, id_player)
                     self.players.append(player)
-            
+            #verifica se alguem morreu ou matou na linha e vai somar ou subtrair de acordo com as regras
             if re.findall(kill, linha):
                 self.total_de_kills = self.total_de_kills +1
                 world_morte = re.findall(matou, linha)
@@ -82,14 +83,14 @@ class Jogo:
         sortedDict = sorted(self.kills.items(), key=operator.itemgetter(1), reverse=True)
         for key in sortedDict:
             ranking[key[0]] = key[1]
-        print("raking de kills{")
-        for key in ranking:
-            print("\t",key,":",ranking[key])
-        print("}")
+
+        return ranking
 
     def mortes_list(self):
+        #expressões para encontrar palavras relacionada as kills
         kill = ':\s([^:]+)\skilled\s(.*?)\sby\s[a-zA-Z_]+'
         causa_da_morte = '(?<=by\s)(.*?)(?=$)'
+        
         for linha in self.linhas_do_jogo:
             if re.findall(kill, linha):
                 key = re.findall(causa_da_morte, linha)
@@ -101,13 +102,14 @@ class Jogo:
         sortedDict = sorted(self.tipo_mortes.items(), key=operator.itemgetter(1), reverse=True)
         for key in sortedDict:
             ranking_mortes[key[0]] = key[1]
-        print("kills_by_means:{")
-        for key in ranking_mortes:
-            print("\t",key,":",ranking_mortes[key])
-        print("}")
+        
+        return ranking_mortes
     
-    def retorna_linhas(self):
-        return self.linhas_do_jogo
-
+    def jogo_id(self):
+        return self.game
+    
+    def quant_kills(self):
+        return self.total_de_kills 
+    
     def __str__(self):
         return 'jogo%s:{\n total_kills: %d;\n %s' % (self.game, self.total_de_kills, self.kills)
