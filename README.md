@@ -1,7 +1,7 @@
-##Quake Log Parser
+## Quake Log Parser
 Parser de logs do game Quake que retorna os resultados das partidas
 
-#Pré-requisitos 
+# Pré-requisitos 
  
   ```
   python 3.7
